@@ -11,11 +11,6 @@ class _CounterStatefulViewState extends State<CounterStatefulView> {
   int counter = 0;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
