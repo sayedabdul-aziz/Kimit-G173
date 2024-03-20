@@ -33,7 +33,6 @@ class DoctorProfile extends StatelessWidget {
             children: [
               // header
               const DoctorProfileHeader(),
-
               // about
               const SizedBox(
                 height: 25,
