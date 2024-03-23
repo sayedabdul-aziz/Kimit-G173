@@ -3,9 +3,11 @@ import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:taskati_3_19/core/constants/assets_images.dart';
 import 'package:taskati_3_19/core/functions/routing.dart';
+import 'package:taskati_3_19/core/services/local_storage.dart';
 import 'package:taskati_3_19/core/utils/colors.dart';
 import 'package:taskati_3_19/core/utils/text_styles.dart';
 import 'package:taskati_3_19/features/home/home_view.dart';
+import 'package:taskati_3_19/features/upload/upload_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -17,9 +19,11 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
+    bool isUpload = AppLocalStorage.getCachedData('isUpload')??false;
     // delay with 3 sec. and navigate to upload view ..
     Future.delayed(const Duration(seconds: 3), () {
-      navigateWithReplacment(context, const HomeView());
+      navigateWithReplacment(
+          context, isUpload ? const HomeView() : const UploadView());
     });
     super.initState();
   }
@@ -32,7 +36,7 @@ class _SplashViewState extends State<SplashView> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // IMAGE
-          Lottie.asset(AssetsImages.logo),
+          Lottie.asset(AssetsImages.logo, width: 250),
           const Gap(10),
           Text(
             'Taskati',

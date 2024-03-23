@@ -10,7 +10,7 @@ class AppLocalStorage {
     userBox.put(key, value);
   }
 
-  static String getCachedData(key) {
+  static getCachedData(key) {
     return userBox.get(key);
   }
 }

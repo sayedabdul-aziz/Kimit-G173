@@ -7,7 +7,6 @@ import 'package:taskati_3_19/core/functions/custom_dialogs.dart';
 import 'package:taskati_3_19/core/functions/routing.dart';
 import 'package:taskati_3_19/core/services/local_storage.dart';
 import 'package:taskati_3_19/core/utils/colors.dart';
-import 'package:taskati_3_19/core/utils/text_styles.dart';
 import 'package:taskati_3_19/core/widgets/custom_btn.dart';
 import 'package:taskati_3_19/features/home/home_view.dart';
 
@@ -33,6 +32,7 @@ class _UploadViewState extends State<UploadView> {
                   // cache your date and navigate
                   AppLocalStorage.cacheData('name', name);
                   AppLocalStorage.cacheData('image', path);
+                  AppLocalStorage.cacheData('isUpload', true);
                   navigateWithReplacment(context, const HomeView());
                 } else if (path != null && name.isEmpty) {
                   showErrorDialog(context, 'Please Enter Your Name');
@@ -104,23 +104,9 @@ class _UploadViewState extends State<UploadView> {
                     name = value;
                   });
                 },
-                decoration: InputDecoration(
-                    hintText: 'Enter Your Name',
-                    hintStyle: getSmallStyle(),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 15),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: AppColors.primary)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: AppColors.primary)),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: AppColors.red)),
-                    focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: AppColors.red))),
+                decoration: const InputDecoration(
+                  hintText: 'Enter Your Name',
+                ),
               )
             ],
           ),
