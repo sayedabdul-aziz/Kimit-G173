@@ -19,11 +19,15 @@ class TodayHeader extends StatelessWidget {
           children: [
             Text(
               DateFormat.yMMMEd().format(DateTime.now()),
-              style: getTitleStyle(),
+              style: getTitleStyle(
+                context,
+              ),
             ),
             Text(
               'Today',
-              style: getTitleStyle(),
+              style: getTitleStyle(
+                context,
+              ),
             ),
           ],
         ),
@@ -41,7 +45,7 @@ class TodayHeader extends StatelessWidget {
             ),
             child: Text(
               '+ Add Task',
-              style: getBodyStyle(color: AppColors.white),
+              style: getBodyStyle(context, color: AppColors.white),
             ),
           ),
         )

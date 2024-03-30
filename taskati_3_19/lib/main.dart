@@ -41,12 +41,18 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
-      darkTheme: AppTheme.darkTheme,
-      theme: AppTheme.lightTheme,
-      home: const SplashView(),
+    return ValueListenableBuilder(
+      valueListenable: Hive.box('user').listenable(),
+      builder: (context, box, child) {
+        final isDark = box.get('isDark') ?? false;
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+          darkTheme: AppTheme.darkTheme,
+          theme: AppTheme.lightTheme,
+          home: const SplashView(),
+        );
+      },
     );
   }
 }

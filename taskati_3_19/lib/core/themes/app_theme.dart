@@ -14,6 +14,17 @@ class AppTheme {
           primary: AppColors.primary,
           onSurface: AppColors.black,
           seedColor: AppColors.black),
+      datePickerTheme: DatePickerThemeData(
+          backgroundColor: AppColors.white,
+          headerBackgroundColor: AppColors.primary,
+          headerForegroundColor: AppColors.white),
+      timePickerTheme: TimePickerThemeData(
+          dialBackgroundColor: AppColors.white,
+          hourMinuteColor: AppColors.primary,
+          dayPeriodColor: AppColors.primary,
+          hourMinuteTextColor: AppColors.white,
+          dayPeriodTextColor: AppColors.black,
+          backgroundColor: AppColors.white),
       inputDecorationTheme: InputDecorationTheme(
           hintStyle: getSmallStyle(),
           contentPadding:
@@ -37,10 +48,22 @@ class AppTheme {
         foregroundColor: AppColors.white,
         backgroundColor: AppColors.primary,
       ),
+      datePickerTheme: DatePickerThemeData(
+          backgroundColor: AppColors.darkScaffoldBg,
+          headerBackgroundColor: AppColors.primary,
+          headerForegroundColor: AppColors.white),
       colorScheme: ColorScheme.fromSeed(
           primary: AppColors.primary,
+          // text color
           onSurface: AppColors.white,
           seedColor: AppColors.white),
+      timePickerTheme: TimePickerThemeData(
+          dialBackgroundColor: AppColors.darkScaffoldBg,
+          hourMinuteColor: AppColors.primary,
+          hourMinuteTextColor: AppColors.white,
+          dayPeriodTextColor: AppColors.white,
+          dayPeriodColor: AppColors.primary,
+          backgroundColor: AppColors.darkScaffoldBg),
       inputDecorationTheme: InputDecorationTheme(
           hintStyle: getSmallStyle(),
           contentPadding:

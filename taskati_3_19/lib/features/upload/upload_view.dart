@@ -47,7 +47,7 @@ class _UploadViewState extends State<UploadView> {
               },
               child: Text(
                 'Done',
-                style: getBodyStyle(color: AppColors.primary),
+                style: getBodyStyle(context, color: AppColors.primary),
               ))
         ],
       ),

@@ -40,7 +40,8 @@ class _SplashViewState extends State<SplashView> {
           const Gap(10),
           Text(
             'Taskati',
-            style: getTitleStyle(color: AppColors.primary, fontSize: 22),
+            style:
+                getTitleStyle(context, color: AppColors.primary, fontSize: 22),
           ),
           // const SizedBox(
           //   height: 10,

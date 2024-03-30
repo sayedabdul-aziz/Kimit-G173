@@ -40,6 +40,9 @@ class _HomeViewState extends State<HomeView> {
               initialSelectedDate: DateTime.now(),
               selectionColor: AppColors.primary,
               selectedTextColor: Colors.white,
+              dateTextStyle: getBodyStyle(context, fontSize: 18),
+              dayTextStyle: getBodyStyle(context, fontSize: 12),
+              monthTextStyle: getBodyStyle(context, fontSize: 12),
               onDateChange: (date) {
                 // New date selected
                 setState(() {
@@ -65,7 +68,9 @@ class _HomeViewState extends State<HomeView> {
                               const Gap(40),
                               Text(
                                 'No Tasks Found!',
-                                style: getBodyStyle(),
+                                style: getBodyStyle(
+                                  context,
+                                ),
                               ),
                             ],
                           ),
@@ -90,8 +95,8 @@ class _HomeViewState extends State<HomeView> {
                                         const Gap(10),
                                         Text(
                                           'Completed',
-                                          style:
-                                              getBodyStyle(color: Colors.white),
+                                          style: getBodyStyle(context,
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -111,8 +116,8 @@ class _HomeViewState extends State<HomeView> {
                                         const Gap(10),
                                         Text(
                                           'Delete Task',
-                                          style:
-                                              getBodyStyle(color: Colors.white),
+                                          style: getBodyStyle(context,
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -137,9 +142,7 @@ class _HomeViewState extends State<HomeView> {
                                   }
                                 },
                                 child: InkWell(
-                                  onTap: () {
-                                    
-                                  },
+                                  onTap: () {},
                                   child: TaskItem(
                                     model: tasks[index],
                                   ),
