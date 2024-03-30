@@ -7,6 +7,7 @@ import 'package:taskati_3_19/core/functions/custom_dialogs.dart';
 import 'package:taskati_3_19/core/functions/routing.dart';
 import 'package:taskati_3_19/core/services/local_storage.dart';
 import 'package:taskati_3_19/core/utils/colors.dart';
+import 'package:taskati_3_19/core/utils/text_styles.dart';
 import 'package:taskati_3_19/core/widgets/custom_btn.dart';
 import 'package:taskati_3_19/features/home/home_view.dart';
 
@@ -25,6 +26,7 @@ class _UploadViewState extends State<UploadView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.white,
         actions: [
           TextButton(
               onPressed: () {
@@ -43,7 +45,10 @@ class _UploadViewState extends State<UploadView> {
                       context, 'Please Upload Your Image and Enter Your Name');
                 }
               },
-              child: const Text('Done'))
+              child: Text(
+                'Done',
+                style: getBodyStyle(color: AppColors.primary),
+              ))
         ],
       ),
       body: Center(

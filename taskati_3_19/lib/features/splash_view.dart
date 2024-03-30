@@ -19,7 +19,7 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    bool isUpload = AppLocalStorage.getCachedData('isUpload')??false;
+    bool isUpload = AppLocalStorage.getCachedData('isUpload') ?? false;
     // delay with 3 sec. and navigate to upload view ..
     Future.delayed(const Duration(seconds: 3), () {
       navigateWithReplacment(

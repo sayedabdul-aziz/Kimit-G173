@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:taskati_3_19/core/services/local_storage.dart';
-import 'package:taskati_3_19/core/utils/colors.dart';
-import 'package:taskati_3_19/core/utils/text_styles.dart';
+import 'package:taskati_3_19/core/themes/app_theme.dart';
+import 'package:taskati_3_19/features/add-task/model/task_model.dart';
 import 'package:taskati_3_19/features/splash_view.dart';
 
 // add hive and hive_flutter into pubspec.
@@ -11,9 +11,27 @@ import 'package:taskati_3_19/features/splash_view.dart';
 // get your box in views to dealing with it
 // put(key,value) and delete(key) , get(key)
 
+//--------------------------
+// add your class model
+// add hive_generator and build_runner
+// annote your class with @HiveType and its fields with @HiveField
+// run: 'dart run build_runner build'
+// generate type adapter
+// register Adapter
+// open your box with name
+// get your box in views to dealing with it
+// put(key,value) and delete(key) , get(key)
+
+//----------------------------
+// handle light and drak theme
+// make button to change theme and cache it
+// listen in matrial app
+
 Future<void> main() async {
   await Hive.initFlutter();
+  Hive.registerAdapter(TaskModelAdapter());
   await Hive.openBox('user');
+  await Hive.openBox<TaskModel>('task');
   AppLocalStorage().init();
   runApp(const MainApp());
 }
@@ -25,28 +43,9 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          appBarTheme: AppBarTheme(
-            centerTitle: true,
-            foregroundColor: AppColors.white,
-            backgroundColor: AppColors.primary,
-          ),
-          inputDecorationTheme: InputDecorationTheme(
-              hintStyle: getSmallStyle(),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: AppColors.primary)),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: AppColors.primary)),
-              errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: AppColors.red)),
-              focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: AppColors.red)))),
+      themeMode: ThemeMode.dark,
+      darkTheme: AppTheme.darkTheme,
+      theme: AppTheme.lightTheme,
       home: const SplashView(),
     );
   }

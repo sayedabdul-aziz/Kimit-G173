@@ -36,6 +36,8 @@ class HomeHeader extends StatelessWidget {
             child: Image.file(
               File(AppLocalStorage.getCachedData('image')),
               width: 50,
+              height: 50,
+              fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
                 // showErrorDialog(context, 'Error');
                 return Image.asset(

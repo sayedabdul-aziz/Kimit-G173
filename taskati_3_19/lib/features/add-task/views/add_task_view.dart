@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:taskati_3_19/core/functions/routing.dart';
+import 'package:taskati_3_19/core/services/local_storage.dart';
 import 'package:taskati_3_19/core/utils/colors.dart';
 import 'package:taskati_3_19/core/utils/text_styles.dart';
+import 'package:taskati_3_19/features/add-task/model/task_model.dart';
 import 'package:taskati_3_19/features/home/home_view.dart';
 
 class AddTaskView extends StatefulWidget {
@@ -15,6 +17,9 @@ class AddTaskView extends StatefulWidget {
 
 class _AddTaskViewState extends State<AddTaskView> {
   int selectdColor = 0;
+  var titleController = TextEditingController();
+  var noteController = TextEditingController();
+
   String date = DateFormat('dd/MM/yyyy').format(DateTime.now());
   String startTime = DateFormat('hh:mm a').format(DateTime.now());
   String endTime = DateFormat('hh:mm a')
@@ -22,6 +27,7 @@ class _AddTaskViewState extends State<AddTaskView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Add Your Task'),
       ),
@@ -36,6 +42,7 @@ class _AddTaskViewState extends State<AddTaskView> {
             ),
             const Gap(7),
             TextFormField(
+              controller: titleController,
               decoration: const InputDecoration(
                 hintText: 'Enter Title Here',
               ),
@@ -47,6 +54,7 @@ class _AddTaskViewState extends State<AddTaskView> {
             ),
             const Gap(7),
             TextFormField(
+              controller: noteController,
               maxLines: 4,
               decoration: const InputDecoration(
                 hintText: 'Enter Note Here',
@@ -198,6 +206,18 @@ class _AddTaskViewState extends State<AddTaskView> {
                 // btn
                 InkWell(
                   onTap: () {
+                    String id = DateTime.now().toIso8601String();
+                    AppLocalStorage.cacheTask(
+                        id,
+                        TaskModel(
+                            id: id,
+                            title: titleController.text,
+                            note: noteController.text,
+                            date: date,
+                            startTime: startTime,
+                            endTime: endTime,
+                            color: selectdColor,
+                            isCompleted: false));
                     navigateWithReplacment(context, const HomeView());
                   },
                   child: Container(
@@ -209,7 +229,7 @@ class _AddTaskViewState extends State<AddTaskView> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
-                      '+ Add Task',
+                      'Create Task',
                       style: getBodyStyle(color: AppColors.white),
                     ),
                   ),
