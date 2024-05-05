@@ -7,6 +7,7 @@ import 'package:insights_news_4_20/core/services/local_storage.dart';
 import 'package:insights_news_4_20/core/utils/colors.dart';
 import 'package:insights_news_4_20/core/utils/styles.dart';
 import 'package:insights_news_4_20/core/widgets/custom_btn.dart';
+import 'package:insights_news_4_20/features/views/upload_view.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -19,14 +20,9 @@ class _ProfileViewState extends State<ProfileView> {
   String image = '';
   String name = '';
   @override
-  void initState() {
+  Widget build(BuildContext context) {
     image = AppLocalStorage.getCachedData('image');
     name = AppLocalStorage.getCachedData('name');
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -133,7 +129,11 @@ class _ProfileViewState extends State<ProfileView> {
                         .pickImage(source: ImageSource.camera)
                         .then((value) {
                       if (value != null) {
-                        // AppLocalStorage.cacheData('image', value.path);
+                        setState(() {
+                          path = value.path;
+                        });
+                        AppLocalStorage.cacheData('image', value.path);
+                        Navigator.pop(context);
                       }
                     });
                     Navigator.pop(context);
@@ -142,8 +142,21 @@ class _ProfileViewState extends State<ProfileView> {
               CustomButton(
                   height: 50,
                   width: double.infinity,
-                  text: 'Upload From Camera',
-                  onPressed: () {})
+                  text: 'Upload From Gallery',
+                  onPressed: () {
+                    ImagePicker()
+                        .pickImage(source: ImageSource.gallery)
+                        .then((value) {
+                      if (value != null) {
+                        setState(() {
+                          path = value.path;
+                        });
+                        AppLocalStorage.cacheData('image', value.path);
+                        Navigator.pop(context);
+                      }
+                    });
+                    Navigator.pop(context);
+                  })
             ],
           ),
         );
@@ -185,7 +198,7 @@ class _ProfileViewState extends State<ProfileView> {
                       }
                       return null;
                     },
-                    style: TextStyle(color: Theme.of(context).primaryColor),
+                    style: const TextStyle(color: AppColors.primary),
                     decoration: const InputDecoration(
                       hintText: 'Enter Your Name',
                     ),
@@ -194,12 +207,15 @@ class _ProfileViewState extends State<ProfileView> {
                     height: 20,
                   ),
                   CustomButton(
+                      bgColor: AppColors.primary,
+                      fgColor: AppColors.background,
                       width: double.infinity,
                       text: 'Update Name',
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
-                          // AppLocalStorage.cacheData('name', textCon.text);
+                          AppLocalStorage.cacheData('name', textCon.text);
                           Navigator.of(context).pop();
+                          setState(() {});
                         }
                       }),
                 ],

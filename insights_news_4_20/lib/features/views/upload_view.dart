@@ -9,7 +9,7 @@ import 'package:insights_news_4_20/core/utils/colors.dart';
 import 'package:insights_news_4_20/core/utils/styles.dart';
 import 'package:insights_news_4_20/core/widgets/custom_btn.dart';
 import 'package:insights_news_4_20/core/widgets/custom_dialogs.dart';
-import 'package:insights_news_4_20/features/views/profile_view.dart';
+import 'package:insights_news_4_20/core/widgets/nav_bar_view.dart';
 
 String? path;
 String name = '';
@@ -34,7 +34,7 @@ class _UploadViewState extends State<UploadView> {
                   AppLocalStorage.cacheData('name', name);
                   AppLocalStorage.cacheData('image', path);
                   AppLocalStorage.cacheData('isUpload', true);
-                  navigateWithReplacment(context, const ProfileView());
+                  navigateWithReplacment(context, const NavBarWidget());
                 } else if (path != null && name.isEmpty) {
                   showErrorDialog(context, 'Please Enter Your Name');
                 } else if (path == null && name.isNotEmpty) {
