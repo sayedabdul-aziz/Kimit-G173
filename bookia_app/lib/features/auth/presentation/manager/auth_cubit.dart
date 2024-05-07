@@ -10,6 +10,30 @@ class AuthCubit extends Cubit<AuthStates> {
   AuthCubit() : super(AuthInitialState());
 
   // login
+  login({
+    required String email,
+    required String password,
+  }) async {
+    emit(LoginLoadingState());
+    try {
+      await Dio().post('${kBaseUrl}auth/login',
+          options: Options(
+            headers: {
+              'Accept': 'application/json',
+            },
+          ),
+          data: {
+            'email': email,
+            'password': password,
+          }).then((value) {
+        var res = PostAuthResponse.fromJson(value.data);
+        emit(LoginSuccessState((res)));
+      });
+    } catch (e) {
+      log(e.toString());
+      emit(LoginErrorState(e.toString()));
+    }
+  }
 
   // register
   register({

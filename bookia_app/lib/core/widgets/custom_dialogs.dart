@@ -7,7 +7,7 @@ showLoadingDialog(BuildContext context) {
   showDialog(
       context: context,
       barrierDismissible: false,
-      barrierColor: AppColors.black.withOpacity(.6),
+      barrierColor: AppColors.dark.withOpacity(.6),
       builder: (context) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,

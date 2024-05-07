@@ -1,4 +1,5 @@
 import 'package:bookia_app/core/utils/colors.dart';
+import 'package:bookia_app/core/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -11,6 +12,7 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.radius,
     required this.onPressed,
+    this.textStyle,
     this.isBorder = false,
   });
   final String text;
@@ -20,6 +22,7 @@ class CustomButton extends StatelessWidget {
   final double? height;
   final double? width;
   final double? radius;
+  final TextStyle? textStyle;
   final Function() onPressed;
 
   @override
@@ -38,7 +41,10 @@ class CustomButton extends StatelessWidget {
             foregroundColor: fgColor ?? AppColors.white,
           ),
           onPressed: onPressed,
-          child: Text(text)),
+          child: Text(
+            text,
+            style: textStyle ?? getbodyStyle(),
+          )),
     );
   }
 }

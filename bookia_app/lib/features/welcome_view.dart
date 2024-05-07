@@ -60,7 +60,7 @@ class WelcomeView extends StatelessWidget {
                   },
                   isBorder: true,
                   bgColor: AppColors.white,
-                  fgColor: AppColors.black,
+                  fgColor: AppColors.dark,
                   text: 'Register',
                 ),
               ],

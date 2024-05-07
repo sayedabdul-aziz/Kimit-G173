@@ -1,11 +1,12 @@
-import 'dart:developer';
-
+import 'package:bookia_app/core/constants/constants.dart';
 import 'package:bookia_app/core/functions/routing.dart';
+import 'package:bookia_app/core/services/local_services.dart';
 import 'package:bookia_app/core/utils/colors.dart';
 import 'package:bookia_app/core/utils/text_styles.dart';
 import 'package:bookia_app/core/widgets/custom_back_btn.dart';
 import 'package:bookia_app/core/widgets/custom_btn.dart';
 import 'package:bookia_app/core/widgets/custom_dialogs.dart';
+import 'package:bookia_app/core/widgets/nav_bar_widget.dart';
 import 'package:bookia_app/features/auth/presentation/manager/auth_cubit.dart';
 import 'package:bookia_app/features/auth/presentation/manager/auth_states.dart';
 import 'package:bookia_app/features/auth/presentation/views/login_view.dart';
@@ -41,7 +42,9 @@ class _RegisterViewState extends State<RegisterView> {
       body: BlocListener<AuthCubit, AuthStates>(
           listener: (context, state) {
             if (state is RegisterSuccessState) {
-              log('Doneeeeeeeee');
+              var token = state.postAuthResponse.data?.token;
+              AppLocalStorage.cacheData(ktoken, token);
+              navigateAndRemoveUntil(context, const NavBarWidget());
             } else if (state is RegisterErrorState) {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -95,8 +98,8 @@ class _RegisterViewState extends State<RegisterView> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
-                        } else if (value.length < 7) {
-                          return 'Password must be at least 7 characters';
+                        } else if (value.length < 8) {
+                          return 'Password must be at least 8 characters';
                         }
                         return null;
                       },
@@ -119,6 +122,8 @@ class _RegisterViewState extends State<RegisterView> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
+                        } else if (value.length < 8) {
+                          return 'Password must be at least 8 characters';
                         }
                         return null;
                       },
