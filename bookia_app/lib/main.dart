@@ -26,12 +26,15 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthCubit()),
-        BlocProvider(create: (context) => HomeCubit()..getBooks()),
+        BlocProvider(create: (context) => HomeCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             fontFamily: GoogleFonts.dmSerifDisplay().fontFamily,
+            appBarTheme: const AppBarTheme(
+              centerTitle: true,
+            ),
             inputDecorationTheme: InputDecorationTheme(
                 filled: true,
                 fillColor: AppColors.secondaryColor,

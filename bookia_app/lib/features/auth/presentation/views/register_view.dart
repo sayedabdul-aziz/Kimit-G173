@@ -1,4 +1,5 @@
 import 'package:bookia_app/core/constants/constants.dart';
+import 'package:bookia_app/core/functions/email_validate.dart';
 import 'package:bookia_app/core/functions/routing.dart';
 import 'package:bookia_app/core/services/local_services.dart';
 import 'package:bookia_app/core/utils/colors.dart';
@@ -21,6 +22,8 @@ class RegisterView extends StatefulWidget {
   @override
   State<RegisterView> createState() => _RegisterViewState();
 }
+
+// regex for email validate
 
 class _RegisterViewState extends State<RegisterView> {
   bool obscureText1 = true;
@@ -85,6 +88,8 @@ class _RegisterViewState extends State<RegisterView> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your email';
+                        } else if (!emailValidate(value)) {
+                          return 'Please enter a valid email';
                         }
                         return null;
                       },

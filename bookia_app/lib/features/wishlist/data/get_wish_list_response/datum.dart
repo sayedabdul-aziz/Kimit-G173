@@ -1,4 +1,4 @@
-class Book {
+class WishlistItem {
   int? id;
   String? title;
   String? category;
@@ -6,7 +6,7 @@ class Book {
   String? price;
   String? image;
 
-  Book({
+  WishlistItem({
     this.id,
     this.title,
     this.category,
@@ -15,7 +15,7 @@ class Book {
     this.image,
   });
 
-  factory Book.fromJson(Map<String, dynamic> json) => Book(
+  factory WishlistItem.fromJson(Map<String, dynamic> json) => WishlistItem(
         id: json['id'] as int?,
         title: json['title'] as String?,
         category: json['category'] as String?,

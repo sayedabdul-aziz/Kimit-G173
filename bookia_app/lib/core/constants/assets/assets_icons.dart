@@ -6,11 +6,12 @@ class AssetsIcons {
 
   //* Nav Bar Icons
   static const String home = "assets/icons/Home.svg";
-  static const String category = "assets/icons/Category.svg";
+  static const String cart = "assets/icons/cart.svg";
   static const String wishlist = "assets/icons/wishlist.svg";
   static const String profile = "assets/icons/Profile.svg";
 
   //* Home Icons
   static const String notification = "assets/icons/notification.svg";
   static const String search = "assets/icons/search.svg";
+  static const String logout = "assets/icons/logout.svg";
 }

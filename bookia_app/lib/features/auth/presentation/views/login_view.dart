@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bookia_app/core/constants/constants.dart';
+import 'package:bookia_app/core/functions/email_validate.dart';
 import 'package:bookia_app/core/functions/routing.dart';
 import 'package:bookia_app/core/services/local_services.dart';
 import 'package:bookia_app/core/utils/colors.dart';
@@ -75,6 +76,8 @@ class _LoginViewState extends State<LoginView> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Enter your email address';
+                      } else if (!emailValidate(value)) {
+                        return 'Please enter a valid email';
                       }
                       return null;
                     },
