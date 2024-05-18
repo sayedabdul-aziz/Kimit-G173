@@ -12,7 +12,7 @@ class CustomBackButton extends StatelessWidget {
       onTap: () => Navigator.pop(context),
       child: Container(
         padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10, left: 10),
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.grey),
           borderRadius: BorderRadius.circular(10),

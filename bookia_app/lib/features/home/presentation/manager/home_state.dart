@@ -1,6 +1,9 @@
 import 'package:bookia_app/features/cart/data/get_cart_response/get_cart_response.dart';
-import 'package:bookia_app/features/home/data/model/get_book_response/get_book_response.dart';
-import 'package:bookia_app/features/wishlist/data/get_wish_list_response/get_wish_list_response.dart';
+import 'package:bookia_app/features/home/data/model/get_all_gategories_response/get_all_gategories_response.dart';
+import 'package:bookia_app/features/home/data/model/get_category_details_response/get_category_details_response.dart';
+import 'package:bookia_app/features/home/data/model/get_products_response/get_products_response.dart';
+import 'package:bookia_app/features/home/data/model/get_sliders_response/get_sliders_response.dart';
+import 'package:bookia_app/features/wishlist/data/get_wishlist_response/get_wishlist_response.dart';
 
 class HomeStates {}
 
@@ -11,13 +14,49 @@ class HomeInitial extends HomeStates {}
 class GetBooksLoading extends HomeStates {}
 
 class GetBooksSuccess extends HomeStates {
-  final GetBookResponse getBookResponse;
+  final GetProductsResponse getBookResponse;
   GetBooksSuccess(this.getBookResponse);
 }
 
 class GetBooksError extends HomeStates {
   final String error;
   GetBooksError(this.error);
+}
+
+class GetAllCategoriesLoading extends HomeStates {}
+
+class GetAllCategoriesSuccess extends HomeStates {
+  final GetAllGategoriesResponse getAllGategoriesResponse;
+  GetAllCategoriesSuccess(this.getAllGategoriesResponse);
+}
+
+class GetAllCategoriesError extends HomeStates {
+  final String error;
+  GetAllCategoriesError(this.error);
+}
+
+class GetCategoryDetailsLoading extends HomeStates {}
+
+class GetCategoryDetailsSuccess extends HomeStates {
+  final GetCategoryDetailsResponse getAllGategoriesResponse;
+  GetCategoryDetailsSuccess(this.getAllGategoriesResponse);
+}
+
+class GetCategoryDetailsError extends HomeStates {
+  final String error;
+  GetCategoryDetailsError(this.error);
+}
+
+class GetSlidersLoading extends HomeStates {}
+
+class GetSlidersSuccess extends HomeStates {
+  final GetSlidersResponse getSlidersResponse;
+  GetSlidersSuccess(this.getSlidersResponse);
+}
+
+class GetSlidersError extends HomeStates {
+  final String error;
+  GetSlidersError(this.error);
 }
 
 //* -------- Wishlist Books -------------
@@ -28,6 +67,15 @@ class AddToFavSuccess extends HomeStates {}
 class AddToFavError extends HomeStates {
   final String error;
   AddToFavError(this.error);
+}
+
+class RemoveFromFavLoading extends HomeStates {}
+
+class RemoveFromFavSuccess extends HomeStates {}
+
+class RemoveFromFavError extends HomeStates {
+  final String error;
+  RemoveFromFavError(this.error);
 }
 
 class GetWishlistLoading extends HomeStates {}
@@ -56,13 +104,23 @@ class AddToCartError extends HomeStates {
 class RemoveFromCartLoading extends HomeStates {}
 
 class RemoveFromCartSuccess extends HomeStates {
-  final GetCartResponse getCartResponse;
-  RemoveFromCartSuccess(this.getCartResponse);
+  RemoveFromCartSuccess();
 }
 
 class RemoveFromCartError extends HomeStates {
   final String error;
   RemoveFromCartError(this.error);
+}
+
+class UpdateCartLoading extends HomeStates {}
+
+class UpdateCartSuccess extends HomeStates {
+  UpdateCartSuccess();
+}
+
+class UpdateCartError extends HomeStates {
+  final String error;
+  UpdateCartError(this.error);
 }
 
 class GetCartLoading extends HomeStates {}

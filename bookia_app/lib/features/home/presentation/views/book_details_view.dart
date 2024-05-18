@@ -3,7 +3,7 @@ import 'package:bookia_app/core/utils/colors.dart';
 import 'package:bookia_app/core/utils/text_styles.dart';
 import 'package:bookia_app/core/widgets/custom_back_btn.dart';
 import 'package:bookia_app/core/widgets/custom_btn.dart';
-import 'package:bookia_app/features/home/data/model/get_book_response/book.dart';
+import 'package:bookia_app/features/home/data/model/get_products_response/product.dart';
 import 'package:bookia_app/features/home/presentation/manager/home_cubit.dart';
 import 'package:bookia_app/features/home/presentation/manager/home_state.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ import 'package:gap/gap.dart';
 class BookDetailsView extends StatelessWidget {
   const BookDetailsView({super.key, required this.book});
 
-  final Book book;
+  final Product book;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class BookDetailsView extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: false,
-          title: const CustomBackButton(),
+          leading: const CustomBackButton(),
           actions: [
             IconButton(
                 onPressed: () {
@@ -77,7 +77,7 @@ class BookDetailsView extends StatelessWidget {
               child: Column(
                 children: [
                   Hero(
-                    tag: book.title ?? '',
+                    tag: book.name ?? '',
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
@@ -88,7 +88,7 @@ class BookDetailsView extends StatelessWidget {
                   ),
                   const Gap(10),
                   Text(
-                    book.title ?? '',
+                    book.name ?? '',
                     style: getTitleStyle(
                       fontSize: 21,
                     ),

@@ -1,7 +1,3 @@
-import 'dart:developer';
-
-import 'package:bookia_app/core/constants/constants.dart';
-import 'package:bookia_app/core/services/local_services.dart';
 import 'package:bookia_app/features/home/presentation/manager/home_cubit.dart';
 import 'package:bookia_app/features/home/presentation/manager/home_state.dart';
 import 'package:bookia_app/features/wishlist/presentation/widgets/wishlist_item.dart';
@@ -24,15 +20,16 @@ class _WishlistViewState extends State<WishlistView> {
   @override
   Widget build(BuildContext context) {
     context.read<HomeCubit>().getWishlist();
-    log(AppLocalStorage.getCachedData(ktoken));
     return Scaffold(
       appBar: AppBar(
         title: const Text('Favourite Books'),
       ),
       body: BlocBuilder<HomeCubit, HomeStates>(
+        buildWhen: (previous, current) =>
+            current is GetWishlistSuccess || current is GetWishlistLoading,
         builder: (context, state) {
           if (state is GetWishlistSuccess) {
-            var list = state.getWishListResponse.data;
+            var list = state.getWishListResponse.data?.data;
             return list == null || list.isEmpty
                 ? const Center(
                     child: Text('No Favourite Books'),

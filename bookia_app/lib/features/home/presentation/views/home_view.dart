@@ -3,10 +3,11 @@ import 'package:bookia_app/core/constants/assets/assets_images.dart';
 import 'package:bookia_app/core/functions/routing.dart';
 import 'package:bookia_app/core/utils/colors.dart';
 import 'package:bookia_app/core/utils/text_styles.dart';
-import 'package:bookia_app/features/home/data/model/get_book_response/book.dart';
+import 'package:bookia_app/features/home/data/model/get_products_response/product.dart';
 import 'package:bookia_app/features/home/presentation/manager/home_cubit.dart';
 import 'package:bookia_app/features/home/presentation/manager/home_state.dart';
 import 'package:bookia_app/features/home/presentation/views/book_details_view.dart';
+import 'package:bookia_app/features/home/presentation/widgets/categories_builder.dart';
 import 'package:bookia_app/features/home/presentation/widgets/home_slider_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<Book>? books = [];
+  List<Product>? books = [];
   @override
   Widget build(BuildContext context) {
     context.read<HomeCubit>().getBooks();
@@ -52,6 +53,9 @@ class _HomeViewState extends State<HomeView> {
           child: Column(children: [
             // slider
             const HomeSliderWidget(),
+            // categories
+            const Gap(20),
+            const CategoriesBuilder(),
             // books
 
             const Gap(20),
@@ -64,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
             BlocConsumer<HomeCubit, HomeStates>(
               listener: (context, state) {
                 if (state is GetBooksSuccess) {
-                  books = state.getBookResponse.data;
+                  books = state.getBookResponse.data?.products;
                 } else if (state is GetBooksError) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -111,7 +115,7 @@ class _HomeViewState extends State<HomeView> {
                                 children: [
                                   // image
                                   Hero(
-                                    tag: books?[index].title ?? '',
+                                    tag: books?[index].name ?? '',
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: Image.network(
@@ -123,7 +127,7 @@ class _HomeViewState extends State<HomeView> {
                                     ),
                                   ),
                                   const Gap(5),
-                                  Text(books?[index].title ?? '',
+                                  Text(books?[index].name ?? '',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: getbodyStyle(fontSize: 18)),

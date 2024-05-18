@@ -2,22 +2,25 @@ import 'package:bookia_app/core/constants/constants.dart';
 import 'package:bookia_app/core/services/api_services.dart';
 import 'package:bookia_app/core/services/local_services.dart';
 import 'package:bookia_app/features/cart/data/get_cart_response/get_cart_response.dart';
-import 'package:bookia_app/features/home/data/model/get_book_response/get_book_response.dart';
+import 'package:bookia_app/features/home/data/model/get_all_gategories_response/get_all_gategories_response.dart';
+import 'package:bookia_app/features/home/data/model/get_category_details_response/get_category_details_response.dart';
+import 'package:bookia_app/features/home/data/model/get_products_response/get_products_response.dart';
+import 'package:bookia_app/features/home/data/model/get_sliders_response/get_sliders_response.dart';
 import 'package:bookia_app/features/home/presentation/manager/home_state.dart';
-import 'package:bookia_app/features/wishlist/data/get_wish_list_response/get_wish_list_response.dart';
+import 'package:bookia_app/features/wishlist/data/get_wishlist_response/get_wishlist_response.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitial());
 
-  late GetBookResponse getBookResponse;
-
+  late GetProductsResponse getBookResponse;
+  late GetSlidersResponse slidersResponse;
   // get books
   getBooks() async {
     emit(GetBooksLoading());
     try {
-      ApiServices.get(endPoint: 'books?page=1').then((value) {
-        var res = GetBookResponse.fromJson(value);
+      ApiServices.get(endPoint: 'products').then((value) {
+        var res = GetProductsResponse.fromJson(value);
         getBookResponse = res;
         emit(GetBooksSuccess(res));
       });
@@ -26,16 +29,55 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  //*  wishlist logic
+  getSliders() async {
+    emit(GetSlidersLoading());
+    try {
+      ApiServices.get(endPoint: 'sliders').then((value) {
+        var res = GetSlidersResponse.fromJson(value);
+        slidersResponse = res;
+        emit(GetSlidersSuccess(res));
+      });
+    } catch (e) {
+      emit(GetSlidersError(e.toString()));
+    }
+  }
+
+  // categories
+  getAllCategories() async {
+    emit(GetAllCategoriesLoading());
+    try {
+      ApiServices.get(endPoint: 'categories').then((value) {
+        var res = GetAllGategoriesResponse.fromJson(value);
+        emit(GetAllCategoriesSuccess(res));
+      });
+    } catch (e) {
+      emit(GetAllCategoriesError(e.toString()));
+    }
+  }
+
+  // categories
+  getBooksByCategory(String id) async {
+    emit(GetCategoryDetailsLoading());
+    try {
+      ApiServices.get(endPoint: 'categories/$id').then((value) {
+        var res = GetCategoryDetailsResponse.fromJson(value);
+        emit(GetCategoryDetailsSuccess(res));
+      });
+    } catch (e) {
+      emit(GetCategoryDetailsError(e.toString()));
+    }
+  }
+
+  //* ------------------- wishlist logic
   // add to wishlist
   addToFav(int bookId) {
     emit(AddToFavLoading());
 
     try {
       ApiServices.post(
-        endPoint: 'wishlist/add',
+        endPoint: 'add-to-wishlist',
         query: {
-          'bookId': bookId,
+          'product_id': bookId,
         },
         headers: {
           'Authorization': 'Bearer ${AppLocalStorage.getCachedData(ktoken)}',
@@ -50,12 +92,32 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
+  removeFromWishList(int bookId) {
+    emit(RemoveFromFavLoading());
+
+    try {
+      ApiServices.post(
+        endPoint: 'remove-from-wishlist',
+        query: {
+          'product_id': bookId,
+        },
+        headers: {
+          'Authorization': 'Bearer ${AppLocalStorage.getCachedData(ktoken)}',
+        },
+      ).then((value) {
+        emit(RemoveFromFavSuccess());
+      });
+    } catch (e) {
+      emit(RemoveFromFavError(e.toString()));
+    }
+  }
+
   // get wishlist
   getWishlist() {
     emit(GetWishlistLoading());
     try {
       ApiServices.get(
-        endPoint: 'wishlist/get',
+        endPoint: 'wishlist',
         headers: {
           'Authorization': 'Bearer ${AppLocalStorage.getCachedData(ktoken)}',
           // langugae
@@ -69,14 +131,16 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
+  //* -------------- Cart ------------------------
+
   addToCart(int bookId) {
     emit(AddToCartLoading());
 
     try {
       ApiServices.post(
-        endPoint: 'cart',
+        endPoint: 'add-to-cart',
         query: {
-          'bookId': bookId,
+          'product_id': bookId,
         },
         headers: {
           'Authorization': 'Bearer ${AppLocalStorage.getCachedData(ktoken)}',
@@ -89,19 +153,41 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  removeFromCart(int bookId) {
-    emit(RemoveFromCartLoading());
+  updateCart(int cartId, int quantity) {
+    emit(UpdateCartLoading());
 
     try {
-      ApiServices.delete(
-        endPoint: 'cart/$bookId',
+      ApiServices.post(
+        endPoint: 'update-cart',
         headers: {
           'Authorization': 'Bearer ${AppLocalStorage.getCachedData(ktoken)}',
         },
+        query: {
+          'cart_item_id': cartId.toString(),
+          'quantity': quantity.toString(),
+        },
       ).then((value) {
-        emit(RemoveFromCartSuccess(
-          GetCartResponse.fromJson(value),
-        ));
+        emit(UpdateCartSuccess());
+      });
+    } catch (e) {
+      emit(UpdateCartError(e.toString()));
+    }
+  }
+
+  removeFromCart(int cartId) {
+    emit(RemoveFromCartLoading());
+
+    try {
+      ApiServices.post(
+        endPoint: 'remove-from-cart',
+        headers: {
+          'Authorization': 'Bearer ${AppLocalStorage.getCachedData(ktoken)}',
+        },
+        query: {
+          'cart_item_id': cartId.toString(),
+        },
+      ).then((value) {
+        emit(RemoveFromCartSuccess());
       });
     } catch (e) {
       emit(RemoveFromCartError(e.toString()));

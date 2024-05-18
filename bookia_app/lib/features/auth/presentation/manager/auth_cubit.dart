@@ -16,7 +16,7 @@ class AuthCubit extends Cubit<AuthStates> {
   }) async {
     emit(LoginLoadingState());
     try {
-      await Dio().post('${kBaseUrl}auth/login',
+      await Dio().post('${kBaseUrl}login',
           options: Options(
             headers: {
               'Accept': 'application/json',
@@ -44,7 +44,7 @@ class AuthCubit extends Cubit<AuthStates> {
   }) async {
     emit(RegisterLoadingState());
     try {
-      await Dio().post('${kBaseUrl}auth/register',
+      await Dio().post('${kBaseUrl}register',
           options: Options(
             headers: {
               'Accept': 'application/json',

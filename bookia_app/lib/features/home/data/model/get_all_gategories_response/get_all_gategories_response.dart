@@ -1,15 +1,20 @@
 import 'data.dart';
 
-class GetCartResponse {
+class GetAllGategoriesResponse {
   Data? data;
   String? message;
   List<dynamic>? error;
   int? status;
 
-  GetCartResponse({this.data, this.message, this.error, this.status});
+  GetAllGategoriesResponse({
+    this.data,
+    this.message,
+    this.error,
+    this.status,
+  });
 
-  factory GetCartResponse.fromJson(Map<String, dynamic> json) {
-    return GetCartResponse(
+  factory GetAllGategoriesResponse.fromJson(Map<String, dynamic> json) {
+    return GetAllGategoriesResponse(
       data: json['data'] == null
           ? null
           : Data.fromJson(json['data'] as Map<String, dynamic>),

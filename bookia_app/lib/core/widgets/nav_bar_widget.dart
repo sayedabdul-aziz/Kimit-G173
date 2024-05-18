@@ -22,7 +22,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   List<Widget> views = [
     const HomeView(),
     const WishlistView(),
-    const CartView()
+    const CartView(),
+    const CartView(),
   ];
   int curruntIndex = 0;
   @override

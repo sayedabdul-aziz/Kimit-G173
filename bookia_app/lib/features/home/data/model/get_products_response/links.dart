@@ -1,6 +1,6 @@
 class Links {
   String? first;
-  dynamic last;
+  String? last;
   dynamic prev;
   String? next;
 
@@ -8,7 +8,7 @@ class Links {
 
   factory Links.fromJson(Map<String, dynamic> json) => Links(
         first: json['first'] as String?,
-        last: json['last'] as dynamic,
+        last: json['last'] as String?,
         prev: json['prev'] as dynamic,
         next: json['next'] as String?,
       );
