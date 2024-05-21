@@ -2,6 +2,7 @@ import 'package:bookia_app/core/constants/assets/assets_icons.dart';
 import 'package:bookia_app/core/utils/colors.dart';
 import 'package:bookia_app/features/cart/presentation/view/cart_view.dart';
 import 'package:bookia_app/features/home/presentation/views/home_view.dart';
+import 'package:bookia_app/features/profile/presentation/views/profile_view.dart';
 import 'package:bookia_app/features/wishlist/presentation/view/wishlist_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,7 +24,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
     const HomeView(),
     const WishlistView(),
     const CartView(),
-    const CartView(),
+    const ProfileView(),
   ];
   int curruntIndex = 0;
   @override

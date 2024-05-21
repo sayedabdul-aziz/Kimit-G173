@@ -210,4 +210,33 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(GetCartError(e.toString()));
     }
   }
+
+  // order details
+  placeOrder(
+      {required String name,
+      required String email,
+      required String phone,
+      required String governorateId,
+      required String address}) {
+    emit(PlaceOrderLoading());
+    try {
+      ApiServices.post(
+        endPoint: 'place-order',
+        query: {
+          'name': name,
+          'email': email,
+          'phone': phone,
+          'governorate_id': governorateId,
+          'address': address
+        },
+        headers: {
+          'Authorization': 'Bearer ${AppLocalStorage.getCachedData(ktoken)}',
+        },
+      ).then((value) {
+        emit(PlaceOrderSuccess());
+      });
+    } catch (e) {
+      emit(PlaceOrderError(e.toString()));
+    }
+  }
 }

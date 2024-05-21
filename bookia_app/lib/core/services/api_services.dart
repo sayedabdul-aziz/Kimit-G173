@@ -14,10 +14,12 @@ class ApiServices {
     required String endPoint,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? query,
+    var data,
   }) async {
     var res = await _dio.get(
       endPoint,
       queryParameters: query,
+      data: data,
       options: Options(
         headers: headers,
       ),
@@ -30,10 +32,12 @@ class ApiServices {
     required String endPoint,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? query,
+    var data,
   }) async {
     var res = await _dio.post(
       endPoint,
       queryParameters: query,
+      data: data,
       options: Options(
         headers: headers,
       ),
@@ -45,11 +49,13 @@ class ApiServices {
   static Future<dynamic> delete({
     required String endPoint,
     Map<String, dynamic>? headers,
+    var data,
     Map<String, dynamic>? query,
   }) async {
     var res = await _dio.delete(
       endPoint,
       queryParameters: query,
+      data: data,
       options: Options(
         headers: headers,
       ),
@@ -62,10 +68,12 @@ class ApiServices {
     required String endPoint,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? query,
+    var data,
   }) async {
     var res = await _dio.put(
       endPoint,
       queryParameters: query,
+      data: data,
       options: Options(
         headers: headers,
       ),

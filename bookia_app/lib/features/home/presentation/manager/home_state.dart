@@ -134,3 +134,14 @@ class GetCartError extends HomeStates {
   final String error;
   GetCartError(this.error);
 }
+
+// order
+
+class PlaceOrderLoading extends HomeStates {}
+
+class PlaceOrderSuccess extends HomeStates {}
+
+class PlaceOrderError extends HomeStates {
+  final String error;
+  PlaceOrderError(this.error);
+}

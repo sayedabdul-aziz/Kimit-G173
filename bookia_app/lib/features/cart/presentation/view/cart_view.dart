@@ -1,4 +1,8 @@
+import 'package:bookia_app/core/functions/routing.dart';
+import 'package:bookia_app/core/utils/colors.dart';
 import 'package:bookia_app/core/utils/text_styles.dart';
+import 'package:bookia_app/core/widgets/custom_btn.dart';
+import 'package:bookia_app/features/cart/presentation/view/check_out_view.dart';
 import 'package:bookia_app/features/cart/presentation/widgets/cart_item.dart';
 import 'package:bookia_app/features/home/presentation/manager/home_cubit.dart';
 import 'package:bookia_app/features/home/presentation/manager/home_state.dart';
@@ -29,7 +33,18 @@ class _CartViewState extends State<CartView> {
             var cartData = state.getCartResponse.data;
             return cartData?.cartItems == null || cartData!.cartItems!.isEmpty
                 ? const Center(
-                    child: Text('No Books in cart'),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.add_shopping_cart,
+                          size: 120,
+                          color: AppColors.grey,
+                        ),
+                        Gap(30),
+                        Text('No Books in cart'),
+                      ],
+                    ),
                   )
                 : Padding(
                     padding: const EdgeInsets.all(20),
@@ -55,8 +70,21 @@ class _CartViewState extends State<CartView> {
                               'Total: ${cartData.total}',
                               style: getTitleStyle(),
                             ),
+                            const Spacer(),
+                            Expanded(
+                                child: CustomButton(
+                                    text: 'Checkout',
+                                    textStyle:
+                                        getbodyStyle(color: AppColors.white),
+                                    onPressed: () {
+                                      navigateTo(
+                                          context,
+                                          CheckoutView(
+                                            totalPrice: cartData.total ?? '',
+                                          ));
+                                    }))
                           ],
-                        )
+                        ),
                       ],
                     ),
                   );
