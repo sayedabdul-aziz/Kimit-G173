@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1056674139851",
+    "project_id": "se7ety-kimit",
+    "storage_bucket": "se7ety-kimit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056674139851:android:a08c898dddc8772e88954e",
+        "android_client_info": {
+          "package_name": "com.example.se7ety_5_28"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBggK96Y4eG8mUL9BQtjKmGKRLj5pJOVaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
